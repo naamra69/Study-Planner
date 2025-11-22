@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyFlow - Ultimate Study Planner</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>StudyFlow</span>
+            </div>
+            <ul class="nav-links">
+                <li class="active" data-tab="dashboard">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </li>
+                <li data-tab="planner">
+                    <i class="fa-solid fa-calendar-day"></i>
+                    <span>Planner</span>
+                </li>
+                <li data-tab="focus">
+                    <i class="fa-solid fa-clock"></i>
+                    <span>Focus Timer</span>
+                </li>
+            </ul>
+            <button id="settings-btn" class="settings-btn">
+                <i class="fa-solid fa-gear"></i> Settings
+            </button>
+            <div class="user-profile">
+                <div class="avatar">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="user-info">
+                    <span class="name">Student</span>
+                    <span class="status">Ready to learn</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="tab-content active">
+                <header>
+                    <h1>Good Morning! ☀️</h1>
+                    <p>Let's make today productive.</p>
+                </header>
+
+                <div class="stats-grid">
+                    <div class="stat-card glass">
+                        <div class="icon-box purple">
+                            <i class="fa-solid fa-list-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Tasks Done</h3>
+                            <p id="tasks-completed-count">0/0</p>
+                        </div>
+                        <div class="progress-ring" id="task-progress-ring">
+                            <!-- SVG Ring would go here -->
+                        </div>
+                    </div>
+                    <div class="stat-card glass">
+                        <div class="icon-box blue">
+                            <i class="fa-solid fa-hourglass-half"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Focus Time</h3>
+                            <p id="total-focus-time">0m</p>
+                        </div>
+                    </div>
+                    <div class="stat-card glass">
+                        <div class="icon-box pink">
+                            <i class="fa-solid fa-fire"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Streak</h3>
+                            <p>1 Day</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-split">
+                    <div class="todays-tasks glass">
+                        <div class="card-header">
+                            <h2>Today's Priorities</h2>
+                            <button class="btn-icon" id="quick-add-task"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                        <ul class="task-list" id="dashboard-task-list">
+                            <!-- Tasks injected here -->
+                            <li class="empty-state">No tasks yet. Plan your day!</li>
+                        </ul>
+                    </div>
+                    <div class="quote-card glass">
+                        <i class="fa-solid fa-quote-left"></i>
+                        <p class="quote-text">"The only way to do great work is to love what you do."</p>
+                        <span class="quote-author">- Steve Jobs</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Planner Section -->
+            <section id="planner" class="tab-content">
+                <header>
+                    <h1>Daily Planner</h1>
+                    <div class="date-display" id="current-date">Loading...</div>
+                </header>
+
+                <div class="planner-container glass">
+                    <div class="add-task-form">
+                        <input type="text" id="new-task-input" placeholder="What do you need to study?">
+                        <div class="form-actions">
+                            <select id="task-category">
+                                <option value="study">📚 Study</option>
+                                <option value="assignment">📝 Assignment</option>
+                                <option value="exam">🎯 Exam Prep</option>
+                                <option value="break">☕ Break</option>
+                            </select>
+                            <input type="time" id="task-time">
+                            <button id="add-task-btn" class="btn-primary">Add Task</button>
+                        </div>
+                    </div>
+
+                    <div class="planner-list-wrapper">
+                        <ul class="planner-list" id="full-task-list">
+                            <!-- Full list injected here -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Focus Timer Section -->
+            <section id="focus" class="tab-content">
+                <div class="timer-container glass">
+                    <div class="timer-tabs">
+                        <button class="timer-tab active" data-mode="pomodoro">Pomodoro</button>
+                        <button class="timer-tab" data-mode="short-break">Short Break</button>
+                        <button class="timer-tab" data-mode="long-break">Long Break</button>
+                    </div>
+
+                    <div class="timer-display">
+                        <svg class="timer-ring" width="300" height="300">
+                            <circle class="timer-ring-bg" cx="150" cy="150" r="140"></circle>
+                            <circle class="timer-ring-progress" id="timer-progress" cx="150" cy="150" r="140"></circle>
+                        </svg>
+                        <div class="time-text" id="timer-time">25:00</div>
+                        <div class="timer-status" id="timer-status">Focus</div>
+                    </div>
+
+                    <div class="timer-controls">
+                        <button id="timer-toggle" class="btn-large"><i class="fa-solid fa-play"></i> Start</button>
+                        <button id="timer-reset" class="btn-secondary"><i class="fa-solid fa-rotate-right"></i></button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings" class="tab-content">
+                <header>
+                    <h1>Settings</h1>
+                    <p>Customize your study experience.</p>
+                </header>
+                <div class="glass" style="max-width: 800px;">
+                    <div class="setting-group">
+                        <label>Theme</label>
+                        <div class="theme-options">
+                            <button class="theme-btn active" data-theme="default"
+                                style="background: linear-gradient(135deg, #0f0c29, #302b63);">Default</button>
+                            <button class="theme-btn" data-theme="sunset"
+                                style="background: linear-gradient(135deg, #350e28, #752846);">Sunset</button>
+                            <button class="theme-btn" data-theme="ocean"
+                                style="background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);">Ocean</button>
+                            <button class="theme-btn" data-theme="forest"
+                                style="background: linear-gradient(135deg, #134e5e, #71b280);">Forest</button>
+                        </div>
+                    </div>
+                    <div class="setting-group">
+                        <label>Font</label>
+                        <select id="font-select">
+                            <option value="'Outfit', sans-serif">Outfit (Default)</option>
+                            <option value="'Inter', sans-serif">Inter</option>
+                            <option value="'Roboto', sans-serif">Roboto</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
